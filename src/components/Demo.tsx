@@ -110,6 +110,9 @@ export default function Demo(
       <main>
         <Board />
       </main>
+      <div>
+        <p>Game 2048 in Farcaster Frame V2.</p>
+      </div>
       <div className={styles.groupbtn}>
         <Button onClick={addFrame} disabled={context?.client.added}>
           Add Client
