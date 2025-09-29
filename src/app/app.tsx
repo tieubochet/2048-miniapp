@@ -8,7 +8,7 @@ const Demo = dynamic(() => import("~/components/Demo"), {
 import GameProvider from "~/context/game-context";
 
 export default function App(
-  { title }: { title?: string } = { title: "Play 2048 in Farcaster FrameV2" }
+  { title }: { title?: string } = { title: "Play 2048 in Farcaster" }
 ) {
   return (
     <GameProvider>

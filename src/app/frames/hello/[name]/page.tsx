@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const frame = {
     version: "next",
-    imageUrl: `https://game-2048-by-dangs.vercel.app/background.jpg`,
+    imageUrl: `https://2048-miniapp.vercel.app/background.png`,
     button: {
       title: "Launch Frame",
       action: {

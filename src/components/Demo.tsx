@@ -57,7 +57,7 @@ export default function Demo(
   }, [isSDKLoaded]);
 
   const openProfileAuth = useCallback(() => {
-    sdk.actions.openUrl("https://warpcast.com/dangs.eth");
+    sdk.actions.openUrl("https://warpcast.com/tieubochet.eth");
   }, []);
 
   const close = useCallback(() => {
@@ -97,7 +97,7 @@ export default function Demo(
         <title>{title}</title>
         <meta
           name="description"
-          content="Play 2048 in Farcaster FrameV2 - By dangs.eth"
+          content="Play 2048 in Farcaster"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -110,10 +110,6 @@ export default function Demo(
       <main>
         <Board />
       </main>
-      <div>
-        <p>🚀 Game make by <code className={styles.profileAuth} onClick={openProfileAuth}>dangs.eth</code></p>
-        <p>💰 Whether the market is 🟩 or 🟥, let's relieve stress with this game, an experimental project of mine on Frame V2.</p>
-      </div>
       <div className={styles.groupbtn}>
         <Button onClick={addFrame} disabled={context?.client.added}>
           Add Client
