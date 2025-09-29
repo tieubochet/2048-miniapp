@@ -3,18 +3,22 @@ export async function GET() {
 
   const config = {
     "accountAssociation": {
-      "header": "eyJmaWQiOjM2ODc1NywidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDgxNjFiMjZmYkExYTNlQUZCYTAxMzAzMDZkYzlhODZBQjE4Y2QxMDMifQ",
-      "payload": "eyJkb21haW4iOiJnYW1lLTIwNDgtYnktZGFuZ3MudmVyY2VsLmFwcCJ9",
-      "signature": "MHhlN2QxYmI4YmJhMzRkNTUxMmEwM2VhYmUyMTdlODY0NTI5N2EzNmNiZmVkOWQwYmE2N2U4ZWVjOWRhN2U1YzdkNmY4MmFkODgyZjExNDQ3OWQ5MWE1ZTI3N2FmYWEzMjNjZjBkYWU2YWRkMGQzYWU4MDZhOTZmMTRmZjViNTMyMTFj"
+      "header": "eyJmaWQiOjI2MDI5OSwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGE1NjNDYTRFMGZmMjIzNjMzMkUyRkRmRDkxZkZEOTZlNTk0NzQ5RkYifQ",
+      "payload": "eyJkb21haW4iOiJodHRwczovLzIwNDgtbWluaWFwcC12Mi52ZXJjZWwuYXBwLyJ9",
+      "signature": "wimPDGW+TBZWqE3AuRrUYqPXZk0WRDsgEvcvETJP93xU44vJnUFLLs+g5DJhMTy4cltlce7Hi0za8S7hKGPVMRs="
     },
     frame: {
-      version: "0.0.1",
-      name: "Play 2048 in Farcaster",
-      iconUrl: `https://2048-miniapp-v2.vercel.app/icon.png`,
-      splashImageUrl: `https://2048-miniapp-v2.vercel.app/splash.png`,
-      splashBackgroundColor: "#8e71a7",
-      homeUrl: "https://2048-miniapp-v2.vercel.app",
-      webhookUrl: `https://2048-miniapp-v2.vercel.app/webhook`
+      "name": "Game 2048 Mini App",
+      "version": "1",
+      "iconUrl": "https://https://2048-miniapp-v2.vercel.app/icon.png",
+      "homeUrl": "https://https://2048-miniapp-v2.vercel.app/",
+      "imageUrl": "https://https://2048-miniapp-v2.vercel.app/image.png",
+      "splashImageUrl": "https://https://2048-miniapp-v2.vercel.app/splash.png",
+      "splashBackgroundColor": "#8e71a7",
+      "webhookUrl": "https://https://2048-miniapp-v2.vercel.app/api/webhook",
+      "subtitle": "Game 2048 Mini App",
+      "description": "Game 2048 Mini App",
+      "primaryCategory": "games"
     },
   };
 
