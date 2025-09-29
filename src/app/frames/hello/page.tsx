@@ -1,0 +1,35 @@
+import { Metadata } from "next";
+import App from "~/app/app";
+
+const appUrl = process.env.NEXT_PUBLIC_URL;
+
+const frame = {
+  version: "next",
+  imageUrl: `https://game-2048-by-dangs.vercel.app/background.jpg`,
+  button: {
+    title: "Launch Frame",
+    action: {
+      type: "launch_frame",
+      name: "Play 2048 in Farcaster",
+      url: `${appUrl}/frames/hello/`,
+      splashImageUrl: `${appUrl}/splash.png`,
+      splashBackgroundColor: "#f7f7f7",
+    },
+  },
+};
+
+export const metadata: Metadata = {
+  title: "Play 2048 in Farcaster!",
+  description: "Play 2048 in Farcaster",
+  openGraph: {
+    title: "Play 2048 in Farcaster!",
+    description: "Play 2048 in Farcaster",
+  },
+  other: {
+    "fc:frame": JSON.stringify(frame),
+  },
+};
+
+export default function HelloFrame() {
+  return <App title={"Hello, world!"} />;
+}
