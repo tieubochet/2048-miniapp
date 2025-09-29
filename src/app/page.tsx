@@ -5,7 +5,7 @@ const appUrl = process.env.NEXT_PUBLIC_URL;
 
 const frame = {
   version: "next",
-  imageUrl: `https://2048-miniapp.vercel.app/background.png`,
+  imageUrl: `https://2048-miniapp-v2.vercel.app/background.png`,
   button: {
     title: "Play 2048 in Farcaster",
     action: {

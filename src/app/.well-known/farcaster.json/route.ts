@@ -10,11 +10,11 @@ export async function GET() {
     frame: {
       version: "0.0.1",
       name: "Play 2048 in Farcaster",
-      iconUrl: `https://2048-miniapp.vercel.app/icon.png`,
-      splashImageUrl: `https://2048-miniapp.vercel.app/splash.png`,
+      iconUrl: `https://2048-miniapp-v2.vercel.app/icon.png`,
+      splashImageUrl: `https://2048-miniapp-v2.vercel.app/splash.png`,
       splashBackgroundColor: "#8e71a7",
-      homeUrl: "https://2048-miniapp.vercel.app",
-      webhookUrl: `https://2048-miniapp.vercel.app/webhook`
+      homeUrl: "https://2048-miniapp-v2.vercel.app",
+      webhookUrl: `https://2048-miniapp-v2.vercel.app/webhook`
     },
   };
 

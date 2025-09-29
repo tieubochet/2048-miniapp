@@ -11,7 +11,7 @@ export const contentType = "image/png";
 export default async function Image() {
   return new ImageResponse(
     (
-      <img src="https://2048-miniapp.vercel.app/background.png" alt="bg" />
+      <img src="https://2048-miniapp-v2.vercel.app/background.png" alt="bg" />
     ),
     {
       ...size,
