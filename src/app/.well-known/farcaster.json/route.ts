@@ -10,12 +10,12 @@ export async function GET() {
     frame: {
       "name": "Game 2048 Mini App",
       "version": "1",
-      "iconUrl": "https://https://2048-miniapp-v2.vercel.app/icon.png",
-      "homeUrl": "https://https://2048-miniapp-v2.vercel.app/",
-      "imageUrl": "https://https://2048-miniapp-v2.vercel.app/image.png",
-      "splashImageUrl": "https://https://2048-miniapp-v2.vercel.app/splash.png",
+      "iconUrl": "https://2048-miniapp-v2.vercel.app/icon.png",
+      "homeUrl": "https://2048-miniapp-v2.vercel.app/",
+      "imageUrl": "https://2048-miniapp-v2.vercel.app/image.png",
+      "splashImageUrl": "https://2048-miniapp-v2.vercel.app/splash.png",
       "splashBackgroundColor": "#8e71a7",
-      "webhookUrl": "https://https://2048-miniapp-v2.vercel.app/api/webhook",
+      "webhookUrl": "https://2048-miniapp-v2.vercel.app/api/webhook",
       "subtitle": "Game 2048 Mini App",
       "description": "Game 2048 Mini App",
       "primaryCategory": "games"
