@@ -4,8 +4,8 @@ export async function GET() {
   const config = {
     "accountAssociation": {
       "header": "eyJmaWQiOjI2MDI5OSwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGE1NjNDYTRFMGZmMjIzNjMzMkUyRkRmRDkxZkZEOTZlNTk0NzQ5RkYifQ",
-      "payload": "eyJkb21haW4iOiJodHRwczovLzIwNDgtbWluaWFwcC12Mi52ZXJjZWwuYXBwLyJ9",
-      "signature": "wimPDGW+TBZWqE3AuRrUYqPXZk0WRDsgEvcvETJP93xU44vJnUFLLs+g5DJhMTy4cltlce7Hi0za8S7hKGPVMRs="
+      "payload": "eyJkb21haW4iOiIyMDQ4LW1pbmlhcHAtdjIudmVyY2VsLmFwcCJ9",
+      "signature": "nbeotrn5wMHS/j2koYYeN/HR9s8KOfXhdJFwbwhvXl9g5w3kdTWng6tCq3STovgJ4jJB0ZzpP6VUkvYOWNm65Bw="
     },
     frame: {
       "name": "Game 2048 Mini App",
