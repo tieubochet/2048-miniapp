@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+// FIX: Import React to resolve namespace error for React.ReactNode.
+import React from "react";
 
 import "~/app/globals.css";
 import { Providers } from "~/app/providers";

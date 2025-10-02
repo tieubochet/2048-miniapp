@@ -1,4 +1,5 @@
-import { notificationDetailsSchema } from "@farcaster/miniapp-sdk";
+// Fix: Updated import path for notificationDetailsSchema.
+import { notificationDetailsSchema } from "@farcaster/miniapp-sdk/schema";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import { setUserNotificationDetails } from "~/lib/kv";
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
 
   if (requestBody.success === false) {
     return Response.json(
-      // FIX: The `ZodError` object has an `issues` property, not `errors`.
+      // FIX: Changed .errors to .issues to correctly access Zod validation errors.
       { success: false, errors: requestBody.error.issues },
       { status: 400 }
     );

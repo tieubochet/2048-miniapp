@@ -12,8 +12,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { name } = await params;
 
-  const miniappEmbed = {
-    version: "1",
+  const frame = {
+    version: "next",
     imageUrl: `https://2048-miniapp-v2.vercel.app/background.png`,
     button: {
       title: "Launch Frame",
@@ -35,8 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `A personalized hello frame for ${name}`,
     },
     other: {
-      "fc:miniapp": JSON.stringify(miniappEmbed),
-      "fc:frame": JSON.stringify(miniappEmbed),
+      "fc:miniapp": JSON.stringify(frame),
     },
   };
 }

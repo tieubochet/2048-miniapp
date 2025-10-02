@@ -3,8 +3,8 @@ import App from "~/app/app";
 
 const appUrl = process.env.NEXT_PUBLIC_URL;
 
-const miniappEmbed = {
-  version: "1",
+const frame = {
+  version: "next",
   imageUrl: `https://2048-miniapp-v2.vercel.app/background.png`,
   button: {
     title: "Launch Frame",
@@ -26,8 +26,7 @@ export const metadata: Metadata = {
     description: "Play 2048 in Farcaster",
   },
   other: {
-    "fc:miniapp": JSON.stringify(miniappEmbed),
-    "fc:frame": JSON.stringify(miniappEmbed),
+    "fc:miniapp": JSON.stringify(frame),
   },
 };
 

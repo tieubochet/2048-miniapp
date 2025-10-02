@@ -1,4 +1,7 @@
-import { ImageResponse } from "next/og";
+// Fix: Added React import to resolve JSX issues.
+import * as React from "react";
+// Fix: ImageResponse is exported from 'next/server', not 'next/og'.
+import { ImageResponse } from "next/server";
 
 export const runtime = "edge";
 
@@ -21,10 +24,10 @@ export default async function Image({ params }: Props) {
 
   return new ImageResponse(
     (
-      // FIX: Replaced `tw` prop with `style` for compatibility with JSX types.
-      <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', backgroundColor: 'white' }}>
-        {/* FIX: Replaced `tw` prop with `style` for compatibility with JSX types. */}
-        <h1 style={{ fontSize: '60px' }}>Hello, {name}</h1>
+      // Fix: Replaced 'tw' prop with 'style' to resolve TypeScript error.
+      <div style={{display: 'flex', height: '100%', width: '100%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', backgroundColor: 'white'}}>
+        {/* Fix: Replaced 'tw' prop with 'style' to resolve TypeScript error. */}
+        <h1 style={{fontSize: '3.75rem'}}>Hello, {name}</h1>
       </div>
     ),
     {

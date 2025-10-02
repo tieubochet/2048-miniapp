@@ -1,4 +1,7 @@
-import { ImageResponse } from "next/og";
+// Fix: Added React import to resolve JSX issues.
+import * as React from "react";
+// Fix: ImageResponse is exported from 'next/server', not 'next/og'.
+import { ImageResponse } from "next/server";
 
 export const alt = "Play 2048 in Farcaster FrameV2 - By dangs.eth";
 export const size = {

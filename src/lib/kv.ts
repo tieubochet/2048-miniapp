@@ -1,4 +1,5 @@
-import { FrameNotificationDetails } from "@farcaster/frame-sdk";
+// Fix: Updated import path for FrameNotificationDetails.
+import type { MiniAppNotificationDetails as FrameNotificationDetails } from "@farcaster/miniapp-sdk/schema";
 import { Redis } from "@upstash/redis";
 
 const redis = new Redis({

@@ -1,23 +1,54 @@
 "use client";
 
 import { useEffect, useCallback, useState } from "react";
-import { sdk, type MiniAppContext } from "@farcaster/miniapp-sdk";
+// Fix: Import types from schema subpath. Changed MiniAppContext to FrameContext.
+import { sdk, type FrameContext } from "@farcaster/miniapp-sdk";
+import type { MiniAppNotificationDetails as FrameNotificationDetails } from "@farcaster/miniapp-sdk/schema";
+import {
+  useAccount,
+  useDisconnect,
+  useConnect,
+  useSwitchChain,
+  useChainId,
+} from "wagmi";
+
+import { config } from "~/components/providers/WagmiProvider";
+import { Button } from "~/components/ui/Button";
+import { truncateAddress } from "~/lib/truncateAddress";
+// Fix: Import chains from viem/chains
+import { base, optimism } from "viem/chains";
+// Fix: Import BaseError to properly type-check errors.
+import { BaseError, UserRejectedRequestError } from "viem";
 import Head from "next/head";
 import styles from "~/app/index.module.css";
 import Board from "~/components/2048/board";
 import Score from "~/components/2048/score";
-import { Button } from "./ui/Button";
 
 export default function Demo(
   { title }: { title?: string } = { title: "Play 2048 in Farcaster" }
 ) {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-  const [context, setContext] = useState<MiniAppContext>();
+  const [context, setContext] = useState<FrameContext | undefined>();
+  const [isContextOpen, setIsContextOpen] = useState(false);
+  const [txHash, setTxHash] = useState<string | null>(null);
+  const [addMiniAppResult, setAddMiniAppResult] = useState("");
+  const [notificationDetails, setNotificationDetails] =
+    useState<FrameNotificationDetails | null>(null);
 
   useEffect(() => {
-    const load = async () => {
-      setContext(await sdk.context);
-      sdk.actions.ready();
+    setNotificationDetails(context?.client.notificationDetails ?? null);
+  }, [context]);
+
+  const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+
+  const { disconnect } = useDisconnect();
+  const { connect, connectors } = useConnect();
+
+  useEffect(() => {
+    const load = () => {
+      setContext(sdk.context);
+      sdk.actions.ready({});
     };
     if (sdk && !isSDKLoaded) {
       setIsSDKLoaded(true);
@@ -25,25 +56,48 @@ export default function Demo(
     }
   }, [isSDKLoaded]);
 
+  useEffect(() => {
+    if (!isConnected && connectors.length > 0) {
+      connect({ connector: connectors[0] });
+    }
+  }, [isConnected, connectors, connect]);
+
+
+  const openProfileAuth = useCallback(() => {
+    sdk.actions.openUrl("https://warpcast.com/tieubochet.eth");
+  }, []);
+
   const close = useCallback(() => {
     sdk.actions.close();
   }, []);
 
   const addMiniApp = useCallback(async () => {
     try {
+      setNotificationDetails(null);
       await sdk.actions.addMiniApp();
-      alert("Mini App added successfully!");
-    } catch (error) {
-      console.error("Failed to add Mini App", error);
-      alert(`Failed to add Mini App: ${error instanceof Error ? error.message : "Unknown error"}`);
+      setAddMiniAppResult("App added successfully!");
+      setContext(currentContext => {
+        if (!currentContext) return currentContext;
+        return {
+          ...currentContext,
+          client: {
+            ...currentContext.client,
+            added: true,
+          }
+        };
+      });
+    } catch (error: any) {
+      if (error.name === 'RejectedByUser') {
+        setAddMiniAppResult('Not added: User rejected the request.');
+      } else {
+        setAddMiniAppResult(`Error: ${error.message}`);
+      }
     }
   }, []);
 
   if (!isSDKLoaded) {
     return <div>Loading...</div>;
   }
-
-  const userName = context?.user.displayName ?? context?.user.username;
 
   return (
     <div className={styles.twenty48}>
@@ -57,9 +111,9 @@ export default function Demo(
       </Head>
       <header>
         <div className={styles.player}>
-          <img src={context?.user.pfpUrl ?? 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'} alt={userName ?? ''} />
+          <img src={context?.user.pfpUrl ?? 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'} alt={context?.user.username ?? ''} />
         </div>
-        <Score name={userName ?? 'player'} />
+        <Score name={context?.user.username ?? 'player'} />
       </header>
       <main>
         <Board />
@@ -69,10 +123,25 @@ export default function Demo(
       </div>
       <div className={styles.groupbtn}>
         <Button onClick={addMiniApp} disabled={context?.client.added}>
-          Add Mini App
+          Add Client
         </Button>
         <Button onClick={close}>Close</Button>
       </div>
     </div>
   );
 }
+const renderError = (error: Error | null) => {
+  if (!error) return null;
+  if (error instanceof BaseError) {
+    // FIX: Cast error to BaseError to allow access to the .walk() method.
+    const isUserRejection = (error as BaseError).walk(
+      (e) => e instanceof UserRejectedRequestError
+    );
+
+    if (isUserRejection) {
+      return <div className="text-red-500 text-xs mt-1">Rejected by user.</div>;
+    }
+  }
+
+  return <div className="text-red-500 text-xs mt-1">{error.message}</div>;
+};

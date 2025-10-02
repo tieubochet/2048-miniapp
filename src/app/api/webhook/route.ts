@@ -1,4 +1,5 @@
-import { eventPayloadSchema } from "@farcaster/miniapp-sdk";
+// Fix: Updated import path for eventPayloadSchema.
+import { eventPayloadSchema } from "@farcaster/miniapp-sdk/schema";
 import { NextRequest } from "next/server";
 import { verifyJsonFarcasterSignature } from "~/lib/jfs";
 import {
@@ -6,6 +7,8 @@ import {
   setUserNotificationDetails,
 } from "~/lib/kv";
 import { sendFrameNotification } from "~/lib/notifs";
+// Fix: Import Buffer to be available in this context.
+import { Buffer } from "buffer";
 
 export async function POST(request: NextRequest) {
   const requestJson = await request.json();
@@ -41,7 +44,7 @@ export async function POST(request: NextRequest) {
   }
 
   switch (payload.data.event) {
-    case "miniapp_added":
+    case "frame_added":
       if (payload.data.notificationDetails) {
         await setUserNotificationDetails(fid, payload.data.notificationDetails);
         await sendFrameNotification({
@@ -54,7 +57,7 @@ export async function POST(request: NextRequest) {
       }
 
       break;
-    case "miniapp_removed":
+    case "frame_removed":
       await deleteUserNotificationDetails(fid);
 
       break;

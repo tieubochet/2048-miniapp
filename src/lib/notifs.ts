@@ -1,7 +1,6 @@
-import {
-  SendNotificationRequest,
-  sendNotificationResponseSchema,
-} from "@farcaster/frame-sdk";
+// Fix: Updated import paths for schema types.
+import type { SendNotificationRequest } from "@farcaster/miniapp-sdk/schema";
+import { sendNotificationResponseSchema } from "@farcaster/miniapp-sdk/schema";
 import { getUserNotificationDetails } from "~/lib/kv";
 
 const appUrl = process.env.NEXT_PUBLIC_URL || "";

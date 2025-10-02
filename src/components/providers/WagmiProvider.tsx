@@ -1,5 +1,8 @@
+// FIX: Import React to resolve namespace error for React.ReactNode.
+import React from "react";
 import { createConfig, http, WagmiProvider } from "wagmi";
-import { base, optimism } from "wagmi/chains";
+// Fix: Chains are now imported from 'viem/chains'.
+import { base, optimism } from "viem/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { frameConnector } from "~/lib/connector";
 
