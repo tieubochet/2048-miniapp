@@ -16,7 +16,16 @@ import {
   
   type MoveDirection = "move_up" | "move_down" | "move_left" | "move_right";
   
-  export const GameContext = createContext({
+  // FIX: Added an explicit type for the context value to ensure correct type inference.
+  type GameContextType = {
+    score: number;
+    status: "ongoing" | "won" | "lost";
+    moveTiles: (direction: MoveDirection) => void;
+    getTiles: () => Tile[];
+    startGame: () => void;
+  };
+  
+  export const GameContext = createContext<GameContextType>({
     score: 0,
     status: "ongoing",
     moveTiles: (_: MoveDirection) => {},
@@ -75,7 +84,8 @@ import {
   
     const checkGameState = () => {
       const isWon =
-        Object.values(gameState.tiles).filter((t) => t.value === gameWinTileValue)
+        // FIX: Explicitly type `t` as `Tile` because it was being inferred as `unknown`.
+        Object.values(gameState.tiles).filter((t: Tile) => t.value === gameWinTileValue)
           .length > 0;
   
       if (isWon) {

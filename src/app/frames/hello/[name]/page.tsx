@@ -12,13 +12,13 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { name } = await params;
 
-  const frame = {
-    version: "next",
+  const miniappEmbed = {
+    version: "1",
     imageUrl: `https://2048-miniapp-v2.vercel.app/background.png`,
     button: {
       title: "Launch Frame",
       action: {
-        type: "launch_frame",
+        type: "launch_miniapp",
         name: "Play 2048 in Farcaster",
         url: `${appUrl}/frames/hello/${name}/`,
         splashImageUrl: `${appUrl}/splash.png`,
@@ -35,7 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `A personalized hello frame for ${name}`,
     },
     other: {
-      "fc:frame": JSON.stringify(frame),
+      "fc:miniapp": JSON.stringify(miniappEmbed),
+      "fc:frame": JSON.stringify(miniappEmbed),
     },
   };
 }

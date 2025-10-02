@@ -27,7 +27,7 @@ export function frameConnector() {
 
       if (!accountsChanged) {
         accountsChanged = this.onAccountsChanged.bind(this)
-        // @ts-expect-error - provider type is stricter
+        // FIX: Removed unused @ts-expect-error directive.
         provider.on('accountsChanged', accountsChanged)
       }
       if (!chainChanged) {
@@ -56,7 +56,7 @@ export function frameConnector() {
       const provider = await this.getProvider()
 
       if (accountsChanged) {
-        // @ts-expect-error - provider type is stricter
+        // FIX: Removed unused @ts-expect-error directive.
         provider.removeListener('accountsChanged', accountsChanged)
         accountsChanged = undefined
       }

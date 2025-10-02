@@ -1,4 +1,4 @@
-import { notificationDetailsSchema } from "@farcaster/frame-sdk";
+import { notificationDetailsSchema } from "@farcaster/miniapp-sdk";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import { setUserNotificationDetails } from "~/lib/kv";
@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
 
   if (requestBody.success === false) {
     return Response.json(
-      { success: false, errors: requestBody.error.errors },
+      // FIX: The `ZodError` object has an `issues` property, not `errors`.
+      { success: false, errors: requestBody.error.issues },
       { status: 400 }
     );
   }

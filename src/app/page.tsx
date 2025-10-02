@@ -3,13 +3,13 @@ import App from "./app";
 
 const appUrl = process.env.NEXT_PUBLIC_URL;
 
-const frame = {
-  version: "next",
+const miniappEmbed = {
+  version: "1",
   imageUrl: `https://2048-miniapp-v2.vercel.app/background.png`,
   button: {
     title: "Play 2048 in Farcaster",
     action: {
-      type: "launch_frame",
+      type: "launch_miniapp",
       name: "Play 2048 in Farcaster",
       url: appUrl,
       splashImageUrl: `${appUrl}/splash.png`,
@@ -28,7 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
       description: "Play 2048 in Farcaster",
     },
     other: {
-      "fc:frame": JSON.stringify(frame),
+      "fc:miniapp": JSON.stringify(miniappEmbed),
+      "fc:frame": JSON.stringify(miniappEmbed),
     },
   };
 }

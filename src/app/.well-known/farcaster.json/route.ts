@@ -7,7 +7,7 @@ export async function GET() {
       "payload": "eyJkb21haW4iOiIyMDQ4LW1pbmlhcHAtdjIudmVyY2VsLmFwcCJ9",
       "signature": "nbeotrn5wMHS/j2koYYeN/HR9s8KOfXhdJFwbwhvXl9g5w3kdTWng6tCq3STovgJ4jJB0ZzpP6VUkvYOWNm65Bw="
     },
-    frame: {
+    miniapp: {
       "name": "Game 2048 Mini App",
       "version": "1",
       "iconUrl": "https://2048-miniapp-v2.vercel.app/icon.png",
