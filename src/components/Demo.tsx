@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useCallback, useState } from "react";
-// Fix: Import types from schema subpath. Changed MiniAppContext to FrameContext.
-import { sdk, type FrameContext } from "@farcaster/miniapp-sdk";
-import type { MiniAppNotificationDetails as FrameNotificationDetails } from "@farcaster/miniapp-sdk/schema";
+import sdk, {
+  FrameNotificationDetails,
+  type FrameContext,
+} from "@farcaster/frame-sdk";
 import {
   useAccount,
   useDisconnect,
@@ -15,9 +16,7 @@ import {
 import { config } from "~/components/providers/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { truncateAddress } from "~/lib/truncateAddress";
-// Fix: Import chains from viem/chains
-import { base, optimism } from "viem/chains";
-// Fix: Import BaseError to properly type-check errors.
+import { base, optimism } from "wagmi/chains";
 import { BaseError, UserRejectedRequestError } from "viem";
 import Head from "next/head";
 import styles from "~/app/index.module.css";
@@ -28,12 +27,13 @@ export default function Demo(
   { title }: { title?: string } = { title: "Play 2048 in Farcaster" }
 ) {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-  const [context, setContext] = useState<FrameContext | undefined>();
+  const [context, setContext] = useState<FrameContext>();
   const [isContextOpen, setIsContextOpen] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
-  const [addMiniAppResult, setAddMiniAppResult] = useState("");
+  const [addFrameResult, setAddFrameResult] = useState("");
   const [notificationDetails, setNotificationDetails] =
     useState<FrameNotificationDetails | null>(null);
+  const [sendNotificationResult, setSendNotificationResult] = useState("");
 
   useEffect(() => {
     setNotificationDetails(context?.client.notificationDetails ?? null);
@@ -43,11 +43,11 @@ export default function Demo(
   const chainId = useChainId();
 
   const { disconnect } = useDisconnect();
-  const { connect, connectors } = useConnect();
+  const { connect } = useConnect();
 
   useEffect(() => {
-    const load = () => {
-      setContext(sdk.context);
+    const load = async () => {
+      setContext(await sdk.context);
       sdk.actions.ready({});
     };
     if (sdk && !isSDKLoaded) {
@@ -55,13 +55,6 @@ export default function Demo(
       load();
     }
   }, [isSDKLoaded]);
-
-  useEffect(() => {
-    if (!isConnected && connectors.length > 0) {
-      connect({ connector: connectors[0] });
-    }
-  }, [isConnected, connectors, connect]);
-
 
   const openProfileAuth = useCallback(() => {
     sdk.actions.openUrl("https://warpcast.com/tieubochet.eth");
@@ -71,27 +64,26 @@ export default function Demo(
     sdk.actions.close();
   }, []);
 
-  const addMiniApp = useCallback(async () => {
+  const addFrame = useCallback(async () => {
     try {
       setNotificationDetails(null);
-      await sdk.actions.addMiniApp();
-      setAddMiniAppResult("App added successfully!");
-      setContext(currentContext => {
-        if (!currentContext) return currentContext;
-        return {
-          ...currentContext,
-          client: {
-            ...currentContext.client,
-            added: true,
-          }
-        };
-      });
-    } catch (error: any) {
-      if (error.name === 'RejectedByUser') {
-        setAddMiniAppResult('Not added: User rejected the request.');
+
+      const result = await sdk.actions.addFrame();
+
+      if (result.added) {
+        if (result.notificationDetails) {
+          setNotificationDetails(result.notificationDetails);
+        }
+        setAddFrameResult(
+          result.notificationDetails
+            ? `Added, got notificaton token ${result.notificationDetails.token} and url ${result.notificationDetails.url}`
+            : "Added, got no notification details"
+        );
       } else {
-        setAddMiniAppResult(`Error: ${error.message}`);
+        setAddFrameResult(`Not added: ${result.reason}`);
       }
+    } catch (error) {
+      setAddFrameResult(`Error: ${error}`);
     }
   }, []);
 
@@ -122,7 +114,7 @@ export default function Demo(
         <p>Game 2048 in Farcaster Frame V2.</p>
       </div>
       <div className={styles.groupbtn}>
-        <Button onClick={addMiniApp} disabled={context?.client.added}>
+        <Button onClick={addFrame} disabled={context?.client.added}>
           Add Client
         </Button>
         <Button onClick={close}>Close</Button>
@@ -133,8 +125,7 @@ export default function Demo(
 const renderError = (error: Error | null) => {
   if (!error) return null;
   if (error instanceof BaseError) {
-    // FIX: Cast error to BaseError to allow access to the .walk() method.
-    const isUserRejection = (error as BaseError).walk(
+    const isUserRejection = error.walk(
       (e) => e instanceof UserRejectedRequestError
     );
 

@@ -1,6 +1,3 @@
-// FIX: Import React to resolve namespace error for React types.
-import React from "react";
-
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   isLoading?: boolean;

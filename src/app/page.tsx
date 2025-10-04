@@ -9,7 +9,7 @@ const frame = {
   button: {
     title: "Play 2048 in Farcaster",
     action: {
-      type: "launch_miniapp",
+      type: "launch_frame",
       name: "Play 2048 in Farcaster",
       url: appUrl,
       splashImageUrl: `${appUrl}/splash.png`,
@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: "Play 2048 in Farcaster",
     },
     other: {
-      "fc:miniapp": JSON.stringify(frame),
+      "fc:frame": JSON.stringify(frame),
     },
   };
 }

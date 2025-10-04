@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     button: {
       title: "Launch Frame",
       action: {
-        type: "launch_miniapp",
+        type: "launch_frame",
         name: "Play 2048 in Farcaster",
         url: `${appUrl}/frames/hello/${name}/`,
         splashImageUrl: `${appUrl}/splash.png`,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `A personalized hello frame for ${name}`,
     },
     other: {
-      "fc:miniapp": JSON.stringify(frame),
+      "fc:frame": JSON.stringify(frame),
     },
   };
 }

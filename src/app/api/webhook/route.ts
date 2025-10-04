@@ -1,5 +1,4 @@
-// Fix: Updated import path for eventPayloadSchema.
-import { eventPayloadSchema } from "@farcaster/miniapp-sdk/schema";
+import { eventPayloadSchema } from "@farcaster/frame-sdk";
 import { NextRequest } from "next/server";
 import { verifyJsonFarcasterSignature } from "~/lib/jfs";
 import {
@@ -7,8 +6,6 @@ import {
   setUserNotificationDetails,
 } from "~/lib/kv";
 import { sendFrameNotification } from "~/lib/notifs";
-// Fix: Import Buffer to be available in this context.
-import { Buffer } from "buffer";
 
 export async function POST(request: NextRequest) {
   const requestJson = await request.json();

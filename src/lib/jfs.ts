@@ -1,12 +1,9 @@
 import { ed25519 } from "@noble/curves/ed25519";
-// Fix: Import schemas from the schema subpath.
 import {
   encodedJsonFarcasterSignatureSchema,
   jsonFarcasterSignatureHeaderSchema,
-} from "@farcaster/miniapp-sdk/schema";
+} from "@farcaster/frame-sdk";
 import { isSignerValid } from "~/lib/neynar";
-// Fix: Import Buffer to be available in this context.
-import { Buffer } from "buffer";
 
 type VerifyJsonFarcasterSignatureResult =
   | { success: false; error: unknown }
