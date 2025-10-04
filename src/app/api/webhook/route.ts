@@ -1,4 +1,4 @@
-import { eventPayloadSchema } from "@farcaster/frame-sdk";
+import { eventPayloadSchema } from "@farcaster/miniapp-sdk";
 import { NextRequest } from "next/server";
 import { verifyJsonFarcasterSignature } from "~/lib/jfs";
 import {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
   }
 
   switch (payload.data.event) {
-    case "frame_added":
+    case "miniapp_added":
       if (payload.data.notificationDetails) {
         await setUserNotificationDetails(fid, payload.data.notificationDetails);
         await sendFrameNotification({
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       }
 
       break;
-    case "frame_removed":
+    case "miniapp_removed":
       await deleteUserNotificationDetails(fid);
 
       break;

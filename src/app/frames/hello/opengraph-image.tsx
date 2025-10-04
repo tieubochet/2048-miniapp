@@ -13,8 +13,10 @@ export const contentType = "image/png";
 export default async function Image() {
   return new ImageResponse(
     (
-      <div tw="h-full w-full flex flex-col justify-center items-center relative bg-white">
-        <h1 tw="text-6xl">Play 2048 in Farcaster!</h1>
+      // FIX: Replaced `tw` prop with `style` for compatibility with JSX types.
+      <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', backgroundColor: 'white' }}>
+        {/* FIX: Replaced `tw` prop with `style` for compatibility with JSX types. */}
+        <h1 style={{ fontSize: '60px' }}>Play 2048 in Farcaster!</h1>
       </div>
     ),
     {
